@@ -1,0 +1,10 @@
+FROM docker.io/hashicorp/packer:1.8.4
+
+WORKDIR /workspace
+COPY . .
+
+RUN apk add --update curl aws-cli jq qemu-img zstd \
+    && mv oci/entrypoint.sh /usr/local/bin \
+    && rm -rf oci
+
+ENTRYPOINT entrypoint.sh
